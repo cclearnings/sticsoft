@@ -1,0 +1,19 @@
+{
+  
+    "admin_username": 
+       {
+          "selector": "input",
+          "locator": "id",
+          "value":  "Email"   
+       },
+       
+     "admin_password": 
+       {
+          "selector": "input",
+          "locator": "id",
+          "value":  "password"   
+       }
+       
+}
+
+
