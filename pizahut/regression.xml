@@ -1,0 +1,19 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="regression" verbose="1">
+
+	<groups>
+		<run>
+			<include name="Regression"></include>
+		</run>
+	</groups>
+
+	<test name="Sanity Test">
+		<classes>
+			<class name="com.sticsoft.automation.core.Runner" />
+			<class name="com.sticsoft.automation.tests.frontend.PlaceOrder" />
+			<class name="com.sticsoft.automation.tests.admin.Admin" />
+		</classes>
+	</test>
+
+</suite>
