@@ -9,7 +9,7 @@ import com.sticsoft.automation.core.Config;
 
 public class Admin {
 
-	WebDriver browser = Browser.start();
+	WebDriver browser = Browser.getDriver();
 	
 	
 	@Test

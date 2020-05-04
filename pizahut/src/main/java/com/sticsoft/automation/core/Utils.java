@@ -16,9 +16,7 @@ public class Utils {
 		System.out.println("Hello");
 		getLocator("", "");
 	}
-	
-	
-	
+			
 	public static JSONObject getJson(String path)
 	{
 		JSONObject object = null;
@@ -44,9 +42,7 @@ public class Utils {
 		List<String> elementData = null;
 		String selector = "";
 		String locator = "";
-		String value = "";
-		
-			
+		String value = "";		
 		return elementData;
 	}
 	

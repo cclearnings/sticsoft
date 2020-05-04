@@ -15,14 +15,10 @@
 		<maven.compiler.target>12</maven.compiler.target>
 	</properties>
 
-
-	<dependencies>
-
-
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>4.0.0-alpha-5</version>
+			<version>3.141.59</version>
 		</dependency>
 
 
@@ -35,6 +31,12 @@
 			<scope>compile</scope>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/ru.yandex.qatools.htmlelements/htmlelements-java -->
+		<dependency>
+			<groupId>ru.yandex.qatools.htmlelements</groupId>
+			<artifactId>htmlelements-java</artifactId>
+			<version>1.20.0</version>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
 		<dependency>
