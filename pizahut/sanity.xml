@@ -10,11 +10,10 @@
 
 	<test name="Sanity Test">
 		<classes>
-			<class name="com.sticsoft.automation.core.Runner" />
 			<class name="com.sticsoft.automation.tests.frontend.PlaceOrder" />
-			<class name="com.sticsoft.automation.tests.admin.Admin" />
 		</classes>
 	</test>
 
 </suite>
 	
+	<!--class name="com.sticsoft.automation.tests.admin.Admin" />-->

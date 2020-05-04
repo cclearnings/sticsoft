@@ -1,43 +1,65 @@
 package com.sticsoft.automation.tests.frontend;
 
+import java.awt.List;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.FindBy;
 import org.testng.annotations.*;
 
 import com.sticsoft.automation.core.Browser;
+import com.sticsoft.automation.core.Page;
+import com.sticsoft.automation.core.pages.frontend.HomePage;
+import com.sticsoft.automation.core.pages.frontend.Items;
+
+
 
 public class PlaceOrder {
 	
-	WebDriver browser = Browser.start();
+	WebDriver browser = Browser.getDriver();
 	
-	@BeforeGroups(groups = { "Sanity","Regression"})
-	public void openBrowser() {
-		System.out.println("Before Group");
+			
+	@BeforeSuite
+	public void collectTests() {
+		System.out.println("Before Suite started");
+		Browser.start("frontend");
 	}
 
-	@AfterGroups(groups =  { "Sanity","Regression"})
+	@BeforeMethod
+	public void openBrowser() {
+	   System.out.println("Before Method Started");
+	}
+
+	@AfterMethod
 	public void exitBrowser() {
-		System.out.println("After Group");
 		browser.close();
 		browser.quit();
+		System.out.println("After Method Called");
 	}
 	
-	@Test
-	public void place()
+	@Test(groups={"Sanity"})
+	public void placeOrder() throws InterruptedException
 	{
-		System.out.println("In place order");
+		HomePage homepage = new HomePage();
+		homepage.login();
+		homepage.selectCityAndArea("MUSCAT","AIRPORT");
+		Items items = new Items();
+		HashMap<String, String> customization = new HashMap<String, String>();
+		customization.put("Size", "large");
+		customization.put("Crust", "Thin N Cripsy");
+		customization.put("Toppings", "Pepperoni");
+		items.selectMenuItem("Pizza", "VERY VEGGIE", customization);
+		items.getItemsInCart();
+		items.navigateToCartPage();
+		
+		
+		
+		
 	}
-	
-	   
-    @Test(groups={"Sanity"})
-    public void login(){
-        
-        System.out.println("Login done");
-        System.out.println("Smoke Scenario2 passed");
-    }
-    
-    @Test(groups={"Regression"})
-    public void register(){
-        System.out.println("Registration2 done");
-    }
 
-}
+		
+	
+	
+   }
