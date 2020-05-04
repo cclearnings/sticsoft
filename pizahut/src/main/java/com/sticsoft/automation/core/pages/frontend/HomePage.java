@@ -63,13 +63,14 @@ public class HomePage extends Page {
 		tapToSelectCityArea.click();
 		System.out.println("On Test Place Orderw");
 		city.click();
+		Thread.sleep(1000);
 		city.selectByVisibleText(cityName);
 		area.click();
-		area.selectByVisibleText(areaName);
-		Thread.sleep(500);
+		Thread.sleep(1000);
+	    area.selectByVisibleText(areaName);
+	   	Thread.sleep(1000);
 		startMyOrder.click();
-		
-		
+			
 	}
 	
 	

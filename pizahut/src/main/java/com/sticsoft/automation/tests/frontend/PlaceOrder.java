@@ -11,6 +11,7 @@ import org.testng.annotations.*;
 
 import com.sticsoft.automation.core.Browser;
 import com.sticsoft.automation.core.Page;
+import com.sticsoft.automation.core.pages.frontend.Checkout;
 import com.sticsoft.automation.core.pages.frontend.HomePage;
 import com.sticsoft.automation.core.pages.frontend.Items;
 
@@ -19,25 +20,40 @@ import com.sticsoft.automation.core.pages.frontend.Items;
 public class PlaceOrder {
 	
 	WebDriver browser = Browser.getDriver();
-	
-			
-	@BeforeSuite
-	public void collectTests() {
-		System.out.println("Before Suite started");
+//	
+//			
+//	@BeforeSuite
+//	public void collectTests() {
+//		System.out.println("Before Suite started");
+//		Browser.start("frontend");
+//	}
+
+	@BeforeGroups(groups={"Sanity"})
+	public void startSession() {
+		System.out.println("Before Groups  started");
 		Browser.start("frontend");
 	}
-
-	@BeforeMethod
-	public void openBrowser() {
-	   System.out.println("Before Method Started");
-	}
-
-	@AfterMethod
-	public void exitBrowser() {
+	
+		
+//	@BeforeMethod
+//	public void openBrowser() {
+//	   System.out.println("Before Method Started");
+//	}
+//
+//	@AfterMethod
+//	public void exitBrowser() {
+//		browser.close();
+//		browser.quit();
+//		System.out.println("After Method Called");
+//	}
+	
+	@AfterGroups(groups={"Sanity"})
+	public void afterSession() {
 		browser.close();
 		browser.quit();
-		System.out.println("After Method Called");
+		System.out.println("After Groups Called");
 	}
+	
 	
 	@Test(groups={"Sanity"})
 	public void placeOrder() throws InterruptedException
@@ -53,10 +69,9 @@ public class PlaceOrder {
 		items.selectMenuItem("Pizza", "VERY VEGGIE", customization);
 		items.getItemsInCart();
 		items.navigateToCartPage();
-		
-		
-		
-		
+		Checkout checkout = new Checkout();
+		checkout.selectPlaceOrder();
+		Thread.sleep(5000);
 	}
 
 		
