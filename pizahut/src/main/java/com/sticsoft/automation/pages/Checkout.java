@@ -1,4 +1,4 @@
-package com.sticsoft.automation.core.pages.frontend;
+package com.sticsoft.automation.pages;
 
 import java.util.HashMap;
 
@@ -12,10 +12,15 @@ import ru.yandex.qatools.htmlelements.element.Link;
 
 public class Checkout extends Page {
 	
+	
+	String URL = "";
+	
 	@Name("Top Navigation")
 	@Timeout(20)
 	@FindBy(xpath = "//button[contains(text(),'Place Order')]")
 	private Link placeOrder;
+	
+	
 	
 	
 	public HashMap<String, String> getOrderSummary()

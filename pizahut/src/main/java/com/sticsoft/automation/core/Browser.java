@@ -2,7 +2,6 @@ package com.sticsoft.automation.core;
 
 
 import java.util.concurrent.TimeUnit;
-import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -10,7 +9,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import com.sticsoft.automation.core.LogHtmlFormatter;
 import com.sticsoft.automation.core.Config.*;
 
 public class Browser {
@@ -30,18 +28,6 @@ public class Browser {
 
 	public static Logger log() {
 		return logger;
-	}
-
-	private static void setLogFormat() {
-		try {
-			logger.setUseParentHandlers(false);
-			FileHandler fileHandler = new FileHandler(Config.getReportsDir() + "log.html");
-			logger.addHandler(fileHandler);
-			LogHtmlFormatter logHtmlFormatter = new LogHtmlFormatter();
-			fileHandler.setFormatter(logHtmlFormatter);
-		} catch (Exception e) {
-			log().log(Level.WARNING, e.getMessage());
-		}
 	}
 
 	public static void start(String site) {

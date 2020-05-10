@@ -4,6 +4,8 @@ public class Config {
 
 	public static String defaultAdminUrl = "http://13.251.157.137/piz_admin/";
 	public static String defaultFrontEndUrl = "http://13.251.157.137/piz_ui/";
+	public static String defaultAdminProdUrl = "http://13.251.157.137/piz_admin/";
+	public static String defaultFrontEndProdUrl = "http://13.251.157.137/piz_ui/";
 	public static String defaultBrowser = "chrome";
 	private static String reportsDir = getEnvVar("reports_dir");
 
@@ -22,5 +24,16 @@ public class Config {
 		}
 		return null;
 	}
+	
+	public static String getURL() {
+		String url = null; 
+		if (getEnvVar("URL") == null) {
+			url = defaultFrontEndUrl;
+		}
+		return url;
+	}
+	
+	
+	
 
 }

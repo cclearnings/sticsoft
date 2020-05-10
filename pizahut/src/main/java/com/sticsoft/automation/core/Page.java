@@ -11,6 +11,8 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
@@ -19,20 +21,23 @@ import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory
 public abstract class Page {
 
 	public static WebDriver driver = Browser.getDriver();
-	
+
 	private static Page currentPage;
-	
 
 	public Page() {
 		PageFactory.initElements(new HtmlElementDecorator(new HtmlElementLocatorFactory(Browser.getDriver())), this);
 		currentPage = this;
-
 	}
 
-	public static void waitUntil(BooleanSupplier condition, int seconds) {
-		new WebDriverWait(driver, seconds).until((WebDriver driver) -> condition.getAsBoolean());
+	public static void waitUntil(ExpectedCondition<Boolean> expectedCondition, int seconds) {
+		new WebDriverWait(driver, seconds);
 	}
-
+	
+	public static void waitUntil(Boolean condition, int seconds) {
+		new WebDriverWait(driver, seconds);
+	}
+	
+	
 	public static boolean isPageLoaded() {
 		String state = (String) Browser.execJavascript("return document.readyState;");
 		return state.matches("complete|loaded|interactive");
@@ -60,7 +65,7 @@ public abstract class Page {
 		if (url != null) {
 			String finalUrl = url;
 			try {
-				waitUntil(() -> Browser.getDriver().getCurrentUrl().startsWith(finalUrl));
+				waitUntil(Browser.getDriver().getCurrentUrl().startsWith(finalUrl));
 			} catch (TimeoutException e) {
 				log().log(Level.WARNING, e.getMessage());
 				throw new RuntimeException("Not on page " + pageClass.getSimpleName() + " (" + url + ")");
@@ -68,7 +73,7 @@ public abstract class Page {
 		}
 
 		try {
-			waitUntil(() -> isPageLoaded() && isAjaxDone());
+			waitUntil(isPageLoaded() && isAjaxDone());
 		} catch (TimeoutException e) {
 			log().log(Level.WARNING, e.getMessage());
 			throw new RuntimeException(pageClass.getSimpleName() + " (" + url + ") is taking too long to load.");
@@ -101,29 +106,29 @@ public abstract class Page {
 			throw new RuntimeException(pageClassName + " not found!");
 		}
 	}
-	
-	  public static Page onPage(Class pageClass) {
-	        verifyPage(pageClass);
-	        try {
-	            pageClass.newInstance();
-	        } catch (InstantiationException | IllegalAccessException e) {
-	            log().log(Level.WARNING, e.getMessage());
-	            throw new RuntimeException("Instantiation failed for " + pageClass.getName());
-	        }
-	        return currentPage;
-	    }
 
+	public static Page onPage(Class pageClass) {
+		verifyPage(pageClass);
+		try {
+			pageClass.newInstance();
+		} catch (InstantiationException | IllegalAccessException e) {
+			log().log(Level.WARNING, e.getMessage());
+			throw new RuntimeException("Instantiation failed for " + pageClass.getName());
+		}
+		return currentPage;
+	}
 
-	public static void waitUntil(BooleanSupplier condition) {
+	private static String getPageClassName(String pageClassName) {
+		System.out.println("This is page Name we are getting " + Page.class.getName());
+		System.out.println("This is page " + pageClassName);
+		return Page.class.getName().replace("com.sticsoft.automation.Page",
+				"com.sticsoft.automation.pages." + pageClassName);
+	}
+
+	public static void waitUntil(Boolean condition) {
 		waitUntil(condition, 30);
 	}
 
-	  private static String getPageClassName(String pageClassName) {
-		    System.out.println("This is page Name we are getting "+Page.class.getName());
-		    System.out.println("This is page "+pageClassName);
-	        return Page.class.getName().replace("com.sticsoft.automation.core.Page", "com.sticsoft.automation.core.pages.frontend." + pageClassName);
-	    }
-	
 	public void toggleTrue(String label) {
 
 	}
