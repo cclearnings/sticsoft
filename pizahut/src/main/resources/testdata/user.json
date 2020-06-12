@@ -1,6 +1,37 @@
 {
-	"test_env": {
+	"qa": {
 		"username": "automation@pizza.com",
-		"password": "Pizza$123"
+		"password": "Auto@123",
+		"mobilenumber": "88888888",
+		"customername": "Automation User",
+		"address1": "888",
+		"address2": "Airport Terminal 2",
+		"address_type":  "Home", 
+		"admin_username": "chandra@pizzahut.com",
+		"admin_password": "Auto@123"
+	},
+	
+	
+	"uat": {
+		"username": "automation@pizza.com",
+		"password": "Auto@123",
+		"mobilenumber": "88888888",
+		"customername": "Automation User",
+		"address1": "888",
+		"address2": "Airport Terminal 2",
+		"address_type":  "Home", 
+		"admin_username": "chandra@pizzahut.com",
+		"admin_password": "Auto@123"
+	},
+	
+	
+	
+    "prod": {
+		"username": "automation@pizza.com",
+		"password": "Auto@123",
+		"admin_username": "stic.qa@pizza.com",
+		"admin_password": "Stic@2018"
 	}
+    	
+
 }

@@ -2,10 +2,12 @@ package com.sticsoft.automation.core;
 
 public class Config {
 
-	public static String defaultAdminUrl = "http://13.251.157.137/piz_admin/";
-	public static String defaultFrontEndUrl = "http://13.251.157.137/piz_ui/";
-	public static String defaultAdminProdUrl = "http://13.251.157.137/piz_admin/";
-	public static String defaultFrontEndProdUrl = "http://13.251.157.137/piz_ui/";
+	public static String qaAdminUrl = "http://pizzahutqa.suntechsolutions.us/piz_admin";
+	public static String qaFrontEndUrl = "http://pizzahutqa.suntechsolutions.us/piz_ui";
+	public static String uatAdminUrl = "http://pizzahutuat.suntechsolutions.us/piz_admin";
+	public static String uatFrontEndUrl = "http://pizzahutuat.suntechsolutions.us/piz_ui";
+	public static String prodAdminUrl = "https://admin.pizzahut.suntechsolutions.us/Login";
+	public static String prodFrontEndUrl = "https://pizzahut.suntechsolutions.us/piz_ui";
 	public static String defaultBrowser = "chrome";
 	private static String reportsDir = getEnvVar("reports_dir");
 
@@ -24,16 +26,28 @@ public class Config {
 		}
 		return null;
 	}
-	
+
 	public static String getURL() {
-		String url = null; 
-		if (getEnvVar("URL") == null) {
-			url = defaultFrontEndUrl;
+		String env = getEnv();
+		if (env.equalsIgnoreCase("uat")) {
+			return uatFrontEndUrl;
+		} else if (env.equalsIgnoreCase("prod")) {
+			return prodFrontEndUrl;
+		} else {
+			return qaAdminUrl;
 		}
-		return url;
+
 	}
-	
-	
-	
+
+	public static String getEnv() {
+		// TODO Auto-generated method stub
+		String env = null;
+		if (getEnvVar("env") == null || getEnvVar("env") == "qa" ) {
+			env = "qa";
+		} else {
+			env = getEnvVar("env").equalsIgnoreCase("prod") ? "prod" : "uat";
+		}
+		return env;
+	}
 
 }

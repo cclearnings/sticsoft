@@ -10,6 +10,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.openqa.selenium.WebElement;
 
+import com.sticsoft.automation.core.Config;
+
 public class Utils {
 	
 	
@@ -17,8 +19,7 @@ public class Utils {
      * Param: Path of the file where Json file located
      * Return: Json Object
      * 
-     */
-	
+     */	
 	
 	public static JSONObject getJson(String path)
 	{
@@ -43,33 +44,23 @@ public class Utils {
 		return (JSONArray) getJson(path).get(key);
 	}
 	
+	public static JSONObject getUserTestData()
+	{
+		JSONObject dataJson = getJson("user");;
+		JSONObject obj = (JSONObject) dataJson.get(Config.getEnv());
+		return obj;
+	}
+	
+	
 	   	
 	public static String getToppings(JSONObject obj , String key)
 	{
 		JSONObject item = (JSONObject) obj.get("Toppings");
-		return ((String) item.get(key)).trim();
+		return ((String) item.get(key));
 	}
 	
     
-	
-
-	
-  
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 //	public static List getLocator(String fileName, String locatorName)
 //	{
 //		

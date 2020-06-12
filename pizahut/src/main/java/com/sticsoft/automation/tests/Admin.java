@@ -19,6 +19,21 @@ public class Admin {
 	public static void main(String[] args)
 	{
 		
+		
+		String str = "hel*lo";
+		String s = str.replaceAll("^[0-9][a-z][A-Z]","");
+		if(s.length() == str.length())
+		{
+			System.out.println(str);
+		}else {
+			char ch[] = str.toCharArray();
+			for(char c : ch)
+			{
+				
+			}
+		}
+		
+		
 //	   HashMap<String, String> map = new HashMap<String, String>();
 //	   map.put("Title", "HUTS SUPER SUPREME");
 //	   map.put("Price", "OMR 4.5000"); 
@@ -36,24 +51,21 @@ public class Admin {
 //       {
 //    	   System.out.println(85*i);
 //       }
-//    
-		JSONArray items = Utils.getOrderTestData("","order_01");
-        System.out.println(items);
-        for(Object obj : items)
-        {
-        	JSONObject json = (JSONObject) obj;
-        	System.out.println(json.get("Crust"));
-        	System.out.println(json.get("Toppings"));
-        	String str = Utils.getToppings(json, "Sauce");
-        	String[] s = str.split(",");
-    		System.out.println(str.split(","));
-    		
-        }
+////    
+//		JSONArray items = Utils.getOrderTestData("","order_01");
+//        System.out.println(items);
+//        for(Object obj : items)
+//        {
+//        	JSONObject json = (JSONObject) obj;
+//        	System.out.println(json.get("Crust"));
+//        	System.out.println(json.get("Toppings"));
+//        	String str = Utils.getToppings(json, "Sauce");
+//        	String[] s = str.split(",");
+//    		System.out.println(str.split(","));
+//    		
+//        }
 		
 			
-		
-		
-		
 //		
 //		
 //		
@@ -66,8 +78,13 @@ public class Admin {
 //	        jsonArray.add(keyvalue);
 //	    });   
 ////	   
+//		
+//		Utils util = new Utils();
+//		util.getUserTestData("username");
+//		
+		
 	}
-	
+
 
 		
 	public static Integer getIndex(String name, List<HashMap> det)

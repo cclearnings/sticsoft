@@ -9,9 +9,16 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 
 import com.sticsoft.automation.core.Browser;
+import com.sticsoft.automation.core.Page;
 
+import static com.sticsoft.automation.core.Page.*;
+
+
+import com.sticsoft.automation.pages.Checkout;
 import com.sticsoft.automation.pages.HomePage;
-import com.sticsoft.automation.pages.Items;
+import com.sticsoft.automation.pages.DealNMenuItems;
+import com.sticsoft.automation.pages.LiveDashBoard;
+import com.sticsoft.automation.pages.ThankYou;
 import com.sticsoft.automation.utils.Utils;
 
 
@@ -19,10 +26,9 @@ import com.sticsoft.automation.utils.Utils;
 public class PlaceOrder {
 	
 	WebDriver browser = Browser.getDriver();
+		
 	
-	
-	
-	@BeforeSuite
+	@BeforeSuite(groups={"Sanity"})
 	public void collectTests() {
 		System.out.println("Before Suite started");
 		Browser.start("frontend");
@@ -62,27 +68,44 @@ public class PlaceOrder {
 //		 return dataJson;
 //	   }
 	
-	
-	
+		
 	@Test(groups={"Sanity"})
-	public void placeOrder() throws InterruptedException
-	{		
-		JSONArray dataJson = Utils.getOrderTestData("","order_01");
-		HomePage homepage = new HomePage();
-		homepage.login();
-		homepage.selectCityAndArea("MUSCAT","AIRPORT");
-		Items items = new Items();
+	public static void placeOrder() throws InterruptedException
+	{		 
+		for(int i = 1; i < 5;  i ++)
+		{
+		JSONArray dataJson = Utils.getOrderTestData("","order_0"+i);
+		onPage(HomePage.class);
+		HomePage homePage = (HomePage) getCurrentPage();
+		homePage.login();
+		homePage.selectChannelAndCity();
+		onPage(DealNMenuItems.class);
+		DealNMenuItems items = (DealNMenuItems) getCurrentPage();
 		for(Object obj : dataJson)
         {
            items.addItemToCart((JSONObject) obj);
         }
-	
-		
-//		dataJson
-//		items.selectMenuItem("Pizza", "CHICKEN FAJITA", null);
+		items.navigateToCartPage();
+		onPage(Checkout.class);
+		Checkout checkout = (Checkout) getCurrentPage();
+        checkout.selectAddress();
+        checkout.selectPaymentOption("cash");
+        checkout.selectPlaceOrder();
+        onPage(ThankYou.class);
+        ThankYou thankyou = (ThankYou) getCurrentPage();
+        Thread.sleep(1000);
+        thankyou.getItems();
+        System.out.println(Page.getItemsOrdered());
+	    onPage(LiveDashBoard.class);
+        LiveDashBoard liveDashBoard = (LiveDashBoard) getCurrentPage();
+        liveDashBoard.viewOrderDetails(Page.getOrderID());
+        // TODO
+        
+        
+	  }
 	}
 
-		
+			
 	
 	
    }

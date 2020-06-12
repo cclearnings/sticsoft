@@ -1,13 +1,18 @@
 package com.sticsoft.automation.core;
 
 
+import java.awt.AWTException;
+import java.awt.Robot;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 
 import com.sticsoft.automation.core.Config.*;
 
@@ -31,12 +36,7 @@ public class Browser {
 	}
 
 	public static void start(String site) {
-		String url = null;
-		if (site == "admin") {
-			url = Config.defaultAdminUrl;
-		} else if (site == "frontend") {
-			url = Config.defaultFrontEndUrl;
-		}
+		String url = Config.getURL();
 		getDriver().get(url);
 	}
 
@@ -48,7 +48,7 @@ public class Browser {
 		driver.close();
 	}
 
-	public static synchronized Object execJavascript(String script, Object... args) {
+	public static Object execJavascript(String script, Object... args) {
 		try {
 			JavascriptExecutor scriptExe = ((JavascriptExecutor) getDriver());
 			return scriptExe.executeScript(script, args);
@@ -58,4 +58,19 @@ public class Browser {
 		}
 	}
 
+	public static void moveToElement()
+	{
+		try {
+			Robot robot = new Robot();
+			robot.mouseWheel(8);
+		} catch (AWTException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+	 
+	}
+	
+	
+	
 }
